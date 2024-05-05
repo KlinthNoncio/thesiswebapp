@@ -283,7 +283,7 @@ var dataRef3 = database.ref('rate');
 // Fetch the data for Current
 dataRef1.on('value', function(getdata1) {
     var humi = getdata1.val();
-    document.getElementById('cur').innerHTML = humi + " A ";
+    document.getElementById('cur').innerHTML = humi + " mA ";
 })
 
 // Fetch the data for Power
@@ -299,9 +299,10 @@ dataRef3.on('value', function(getdata3) {
 
     // Inside this callback, both humi and shish are available
     dataRef2.on('value', function(getdata2) {
-        var humi = getdata2.val();
-        var shisbol = shish * humi;
-        document.getElementById('cost').innerHTML = shisbol / 3600 + " Php ";
+    var humi = getdata2.val();
+    var shisbol = shish * humi;
+    var shisbolRounded = (shisbol / 3600).toFixed(3); // Round shisbol to 3 decimal places
+    document.getElementById('cost').innerHTML = shisbolRounded + " Php";
     })
 })
 
