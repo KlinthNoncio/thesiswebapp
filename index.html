@@ -298,11 +298,10 @@ dataRef3.on('value', function(getdata3) {
     document.getElementById('rate').innerHTML = "P" + shish;
 
     // Inside this callback, both humi and shish are available
-    dataRef2.on('value', function(getdata2) {
-    var humi = getdata2.val();
-    var shisbol = shish * humi;
-    var shisbolRounded = (shisbol / 3600).toFixed(3); // Round shisbol to 3 decimal places
-    document.getElementById('cost').innerHTML = shisbolRounded + " Php";
+        dataRef2.on('value', function(getdata2) {
+        var humi = getdata2.val();
+        var shisbol = shish * humi;
+        document.getElementById('cost').innerHTML = shisbol / 360000 + " Php ";
     })
 })
 
