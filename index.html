@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thesis Webapp</title>
+
+    
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+		<link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+   
+
+   
+    
+</head>
+<body> 
+    <header>
+        <a href="#" class="logo">Thesis Webapp</a>
+        
+
+        <ul class="navbar">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#control">Control</a></li>
+            <li><a href="#monitor">Monitor</a></li>
+            <li><a href="#consumption">Consumption</a></li>
+            <li><a href="#about">About</a></li>
+        </ul>
+        <div class="bx bx-menu" id="menu-icon"></div>
+    </header>
+
+    <!--home-->
+    <section class="home" id="home">
+        <div class="home-text">
+            <h1>Power Monitoring System w/ 7-inch LCD 4-Channel Load  Control Interface & IoT Using ESP32</h1><br>
+            <p>This system utilizes a NodeMCU ESP32 Microcontroller to process and send data to a Firebase Realtime Database.</p><br>
+            <p>The Microcontroller uses an SCT-013 Current Sensor to read the ampage of your electrical system.</p><br>
+            <p>A 4-Channel Relay is used to allow on-site and remote control of your system's switches.</p><br>
+            <p>The LCD Touchscreen user interface gives you an accurate power reading and tells you the estimated cost of your current power consumption.</p>
+            
+        </div>
+    </section>
+
+    <!--control-->
+    <section class="control" id="control">
+        <div class="wrapper">	
+            <div class="progress">
+                <a class = "icon1" >
+                    <i class="fas fa-4x fa-bath"></i>
+                </a>
+                <div class= "toggle-btn" id="unact">
+                    <div class= "inner-circle">
+        
+                    </div>
+                </div>
+                <div class= "toggle-btn active" id="act" >
+                    <div class= "inner-circle">
+        
+                    </div>
+                </div>
+            </div>
+    
+            <div class="progress">
+                <a class = "icon1" >
+                    <i class="fas fa-4x fa-utensils"></i>
+                </a>
+                <div class= "toggle-btn1" id="unact1">
+                    <div class= "inner-circle">
+        
+                    </div>
+                </div>
+                <div class= "toggle-btn1 active" id="act1" >
+                    <div class= "inner-circle">
+        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="progress">
+                <a class = "icon1" >
+                    <i class="fas fa-4x fa-tv"></i>
+                </a>
+                <div class= "toggle-btn2" id="unact2">
+                    <div class= "inner-circle">
+        
+                    </div>
+                </div>
+                <div class= "toggle-btn2 active" id="act2" >
+                    <div class= "inner-circle">
+        
+                    </div>
+                </div>
+            </div>
+            <div class="progress">
+                <a class = "icon1" >
+                    <i class="fas fa-4x fa-bed"></i>
+                </a>
+                <div class= "toggle-btn3" id="unact3">
+                    <div class= "inner-circle">
+        
+                    </div>
+                </div>
+                <div class= "toggle-btn3 active" id="act3" >
+                    <div class= "inner-circle">
+        
+                    </div>
+                </div>
+            </div>	
+        </div>
+    </section>
+
+ <!--monitor-->
+ <section class="monitor" id="monitor">
+    <ul class="monitor-info">
+        <li>
+            <i class='bx bx-bolt-circle bx-lg'></i>
+            <span class="text">
+                <h3  class="value" id="pow">69 W</h3>
+                <p>Power Consumption</p>
+            </span>
+        </li>
+        <li>
+            <i class='bx bx-line-chart bx-lg'></i>
+            <span class="text">
+                <h3  class="value" id="cur">69 W</h3>
+                <p>Current</p>
+            </span>
+        </li>
+        <li>
+            <i class='bx bx-money bx-lg'></i>
+            <span class="text">
+                <h3 class="value" id="rate">P69</h3>
+                <p>Rate</p>
+            </span>
+        </li>
+        <li>
+            <i class='bx bx-money bx-lg'></i>
+            <span class="text">
+                <h3 class="value" id="cost">P69</h3>
+                <p>Est. Cost</p>
+            </span>
+        </li>
+    </ul>
+
+
+</section>
+<!--Consumption-->
+<section class="consumption" id="consumption">
+    <canvas id="myChart" width="400" height="400"></canvas>
+</section>
+
+<!--About-->
+<section class="about" id="about">
+    <p>This is a thesis project created by</p><br>
+    <p>Boyose, Leo Franz</p><br>
+    <p>Galorio, Ronald Stephen</p><br>
+    <p>Noncio, Klinth John</p><br>
+</section>
+
+<script type="module">
+   
+// Your web app's Firebase configuration
+
+var config = {
+    apiKey: "AIzaSyBI832-JJ9yLax63CTHJLZuEZ0tW77Usig",
+    authDomain: "thesisasiatest2.firebaseapp.com",
+    databaseURL: "https://thesisasiatest2-default-rtdb.firebaseio.com",
+    projectId: "thesisasiatest2",
+    storageBucket: "thesisasiatest2.appspot.com",
+    messagingSenderId: "580958374017",
+    appId: "1:580958374017:web:f7664e481083e207de2580",
+    measurementId: "G-CDKN8XRPK3"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(config);
+ 
+//Led Control
+  $(document).ready(function(){
+	var database = firebase.database();
+	var Led1Status;
+	var Led2Status;
+	var Led3Status;
+	var Led4Status;
+	database.ref().on("value", function(snap){
+		Led1Status = snap.val().Led1Status;
+		Led2Status = snap.val().Led2Status;
+		Led3Status = snap.val().Led3Status;
+		Led4Status = snap.val().Led4Status;
+		if(Led1Status == true){
+			document.getElementById("unact").style.display = "none";
+			document.getElementById("act").style.display = "block";
+		} else {
+			document.getElementById("unact").style.display = "block";
+			document.getElementById("act").style.display = "none";
+		}
+		if(Led2Status == true){
+			document.getElementById("unact1").style.display = "none";
+			document.getElementById("act1").style.display = "block";
+		} else {
+			document.getElementById("unact1").style.display = "block";
+			document.getElementById("act1").style.display = "none";
+		}
+		if(Led3Status == true){
+			document.getElementById("unact2").style.display = "none";
+			document.getElementById("act2").style.display = "block";
+		} else {
+			document.getElementById("unact2").style.display = "block";
+			document.getElementById("act2").style.display = "none";
+		}
+		if(Led4Status == true){
+			document.getElementById("unact3").style.display = "none";
+			document.getElementById("act3").style.display = "block";
+		} else {
+			document.getElementById("unact3").style.display = "block";
+			document.getElementById("act3").style.display = "none";
+		}
+	});
+
+	$(".toggle-btn").click(function(){
+		var firebaseRef = firebase.database().ref().child("Led1Status");
+		if(Led1Status == 1){
+			firebaseRef.set(false);
+			Led1Status = false;
+		} else {
+			firebaseRef.set(true);
+			Led1Status = true;
+		}
+	})
+	$(".toggle-btn1").click(function(){
+		var firebaseRef = firebase.database().ref().child("Led2Status");
+		if(Led2Status == 1){
+			firebaseRef.set(false);
+			Led2Status = false;
+		} else {
+			firebaseRef.set(true);
+			Led2Status = true;
+		}
+	})
+	$(".toggle-btn2").click(function(){
+		var firebaseRef = firebase.database().ref().child("Led3Status");
+		if(Led3Status == 1){
+			firebaseRef.set(false);
+			Led3Status = false;
+		} else {
+			firebaseRef.set(true);
+			Led3Status = true;
+		}
+	})
+	$(".toggle-btn3").click(function(){
+		var firebaseRef = firebase.database().ref().child("Led4Status");
+		if(Led4Status == 1){
+			firebaseRef.set(false);
+			Led4Status = false;
+		} else {
+			firebaseRef.set(true);
+			Led4Status = true;
+		}
+	})
+});
+
+//Monitor
+ // getting reference to the database
+ var database = firebase.database();
+
+ //getting reference to the data we want
+ var dataRef1 = database.ref('Current');
+var dataRef2 = database.ref('Power');
+var dataRef3 = database.ref('rate');
+
+// Fetch the data for Current
+dataRef1.on('value', function(getdata1) {
+    var humi = getdata1.val();
+    document.getElementById('cur').innerHTML = humi + " A ";
+})
+
+// Fetch the data for Power
+dataRef2.on('value', function(getdata2) {
+    var temp = getdata2.val();
+    document.getElementById('pow').innerHTML = temp + " W-S ";
+})
+
+// Fetch the data for rate and perform multiplication
+dataRef3.on('value', function(getdata3) {
+    var shish = getdata3.val();
+    document.getElementById('rate').innerHTML = "P" + shish;
+
+    // Inside this callback, both humi and shish are available
+    dataRef2.on('value', function(getdata2) {
+        var humi = getdata2.val();
+        var shisbol = shish * humi;
+        document.getElementById('cost').innerHTML = shisbol / 3600 + " Php ";
+    })
+})
+
+//Monitor Graph
+var database = firebase.database();
+var dataRef = database.ref('Graph');
+dataRef.once('value', function(snapshot) {
+  // Process your data here
+  var data = snapshot.val();
+  // Call a function to draw the chart with the retrieved data
+  drawChart(data);
+  });
+function drawChart(data) {
+  var ctx = document.getElementById('myChart').getContext('2d');
+  var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: Object.keys(data), // Assuming your data is an object with keys as labels
+      datasets: [{
+        label: 'Power Consumption (KW-s)', // Change the legend label here
+        data: Object.values(data), // Assuming your data is an object with values as data points
+        backgroundColor: 'rgba(255, 99, 132, 0.2)', // Change the color as needed
+        borderColor: 'rgba(255, 99, 132, 1)', // Change the color as needed
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      },
+      }
+  });
+}
+
+
+//navbar
+let menu = document.querySelector('#menu-icon');
+let navbar = document.querySelector('.navbar');
+
+// Function to toggle the menu and navbar classes
+function toggleNavbar() {
+    menu.classList.toggle('bx-x');
+    navbar.classList.toggle('open');
+}
+
+// Attach the toggleNavbar function to the menu click event
+menu.onclick = toggleNavbar;
+
+// Close the navbar when a navbar item is clicked
+let navbarItems = document.querySelectorAll('.navbar a');
+
+navbarItems.forEach(item => {
+    item.addEventListener('click', () => {
+        if (navbar.classList.contains('open')) {
+            toggleNavbar();
+        }
+    });
+});
+
+
+        
+  
+</script>
+
+
+
+</body>
+</html>
